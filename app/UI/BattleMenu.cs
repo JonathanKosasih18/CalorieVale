@@ -4,6 +4,7 @@ public static class BattleMenu
 {
     public static void StartBattle(Player player, Vegie vegie)
     {
+
         Console.Clear();
         Console.WriteLine("A wild " + vegie.Name + " appears!");
 
@@ -30,6 +31,7 @@ public static class BattleMenu
                     break;
                 case "2":
                     // player.UseItem();
+
                     break;
                 case "3":
                     int previousHealth = player.CurrentHealth;
