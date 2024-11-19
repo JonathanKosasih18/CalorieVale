@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Cooking\\CalorieVale\\app\\app.csproj": {}
+    "C:\\Users\\MSI\\Documents\\COOLEYEAHH\\Semester 3\\OOP\\CalorieVale\\app\\app.csproj": {}
   },
   "projects": {
-    "C:\\Cooking\\CalorieVale\\app\\app.csproj": {
+    "C:\\Users\\MSI\\Documents\\COOLEYEAHH\\Semester 3\\OOP\\CalorieVale\\app\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Cooking\\CalorieVale\\app\\app.csproj",
+        "projectUniqueName": "C:\\Users\\MSI\\Documents\\COOLEYEAHH\\Semester 3\\OOP\\CalorieVale\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "C:\\Cooking\\CalorieVale\\app\\app.csproj",
-        "packagesPath": "C:\\Users\\Christian\\.nuget\\packages\\",
-        "outputPath": "C:\\Cooking\\CalorieVale\\app\\obj\\",
+        "projectPath": "C:\\Users\\MSI\\Documents\\COOLEYEAHH\\Semester 3\\OOP\\CalorieVale\\app\\app.csproj",
+        "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MSI\\Documents\\COOLEYEAHH\\Semester 3\\OOP\\CalorieVale\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Christian\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

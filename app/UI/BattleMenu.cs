@@ -18,7 +18,7 @@ public static class BattleMenu
             Console.WriteLine("Player turn");
             Console.WriteLine("1. Attack");
             Console.WriteLine("2. Use Item");
-            Console.WriteLine("3. Run");
+            Console.WriteLine("3. Guard");
             Console.Write("Choose an option: ");
             var option = Console.ReadLine();
             switch (option)
@@ -30,7 +30,7 @@ public static class BattleMenu
                     // player.UseItem();
                     break;
                 case "3":
-                    Console.WriteLine("You can't run from this battle!");
+                    player.Guard();
                     break;
                 default:
                     Console.WriteLine("Invalid option");
