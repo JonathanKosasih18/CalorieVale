@@ -5,11 +5,14 @@ public class Player : Character
     public int Experience { get; private set; }
     public int Level { get; private set; }
     private bool isGuarding = false;
+    private int level = 1;
+    private int experience = 0;
+    private int experienceToNextLevel = 100;
 
     // Singleton pattern
     public static Player Instance => _instance.Value;
 
-    private Weapon weapon;
+    public Weapon CurrentWeapon { get; private set; }
 
     private Player()
     {
@@ -21,10 +24,7 @@ public class Player : Character
         Name = "Chubbo";
         MaxHealth = 100;
         CurrentHealth = MaxHealth;
-        AttackLevel = 10;
-        Luck = 5;
-        Experience = 0;
-        Level = 1;
+        CurrentWeapon = Weapon.CreateWeapon("Fists");
     }
 
     public void Guard()
@@ -47,19 +47,66 @@ public class Player : Character
             int reducedDamage = (int)(incomingDamage * (1 - reduction));
             Console.WriteLine($"{Name} blocks {(int)(reduction * 100)}% of the damage!");
             isGuarding = false;
+            
+            GainExperience(reducedDamage);
             return reducedDamage;
         }
+        GainExperience(incomingDamage);
         return incomingDamage;
     }
 
-    void levelUp()
+    private void LevelUp()
     {
+        level++;
+        experience -= experienceToNextLevel;
+        experienceToNextLevel = level * 50;
+        
+        MaxHealth += 20;
+        CurrentHealth = MaxHealth;
+        
+        // Upgrade weapon based on level
+        CurrentWeapon = level switch
+        {
+            1 => Weapon.CreateWeapon("Fists"),
+            3 => Weapon.CreateWeapon("FryGun"),
+            5 => Weapon.CreateWeapon("SodaSprayer"),
+            7 => Weapon.CreateWeapon("PizzaSlicer"),
+            10 => Weapon.CreateWeapon("SugarRushRifle"),
+            _ => CurrentWeapon
+        };
 
+        Console.WriteLine($"\n{Name} reached level {level}!");
+        Console.WriteLine($"Max Health increased to {MaxHealth}!");
+        if (CurrentWeapon != null)
+        {
+            Console.WriteLine($"Obtained new weapon: {CurrentWeapon.Name}!");
+        }
     }
 
-    void gainExperience()
+    public void GainExperience(int amount)
     {
+        experience += amount;
+        Console.WriteLine($"{Name} gained {amount} experience!");
+        
+        if (experience >= experienceToNextLevel)
+        {
+            LevelUp();
+        }
+    }
 
+    public int GetExperience()
+    {
+        return experience;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetExpereinceToNextLevel()
+    {
+        return experienceToNextLevel;
     }
 
     void heal()
@@ -74,17 +121,27 @@ public class Player : Character
 
     public void Attack(Vegie vegie)
     {
+        int damage = GetDamage();
         Console.WriteLine(Name + " use attack on " + vegie.Name);
-        vegie.CurrentHealth -= AttackLevel;
+        vegie.CurrentHealth -= damage;
 
         // sleep for 1 second
         Thread.Sleep(1000);
 
-        Console.WriteLine("It dealts " + AttackLevel + " damage!");
+        Console.WriteLine("It dealts " + damage + " damage!");
+        Console.WriteLine(Name + " gained " + 5 + " experience!");
 
         Console.WriteLine("Press any key to continue...");
 
         Console.ReadKey();
+    }
+
+    public int GetDamage() {
+        if (CurrentWeapon == null) {
+            return 5;
+        }
+
+        return CurrentWeapon.AttackLevel;
     }
 
     void useItem(Item item)

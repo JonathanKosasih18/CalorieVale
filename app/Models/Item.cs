@@ -1,7 +1,4 @@
 class Item
 {
-    void apply()
-    {
-
-    }
+    // Properties
 }

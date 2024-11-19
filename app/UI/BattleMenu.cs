@@ -13,6 +13,7 @@ public static class BattleMenu
             // Print player and vegie stats
             Console.Clear();
             Console.WriteLine(player.Name + " HP: " + player.CurrentHealth + "\t\t" + vegie.Name + " HP: " + vegie.CurrentHealth);
+            Console.WriteLine(" Level: " + player.GetLevel() + "\t\t" + "Experience: " + player.GetExperience() + "/" + player.GetExpereinceToNextLevel());
             Console.WriteLine("\n");
 
             Console.WriteLine("Player turn");
@@ -25,11 +26,13 @@ public static class BattleMenu
             {
                 case "1":
                     player.Attack(vegie);
+                    player.GainExperience(5);
                     break;
                 case "2":
                     // player.UseItem();
                     break;
                 case "3":
+                    int previousHealth = player.CurrentHealth;
                     player.Guard();
                     break;
                 default:
@@ -40,6 +43,7 @@ public static class BattleMenu
             if (vegie.IsDead())
             {
                 Console.WriteLine("You won!");
+                player.GainExperience(50);
                 break;
             }
 
