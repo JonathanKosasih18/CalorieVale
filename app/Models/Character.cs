@@ -6,6 +6,15 @@ public abstract class Character
     public int AttackLevel { get; set; }
     public int Luck { get; set; }
 
+    public Character(string name, int maxHealth, int attackLevel, int luck)
+    {
+        Name = name;
+        MaxHealth = maxHealth;
+        CurrentHealth = MaxHealth;
+        AttackLevel = attackLevel;
+        Luck = luck;
+    }
+
     public void TakeDamage(int damage)
     {
         CurrentHealth -= damage;

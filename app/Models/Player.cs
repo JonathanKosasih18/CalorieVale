@@ -9,28 +9,36 @@ public class Player : Character
     private int experience = 0;
     private int experienceToNextLevel = 100;
 
+    private static int defaultHealth = 50;
+    private static int defaultAttackLevel = 25;
+    private static int defaultLuck = 5;
+
     // Singleton pattern
     public static Player Instance => _instance.Value;
 
     public Weapon CurrentWeapon { get; private set; }
 
-    private Player()
+    public Inventory Inventory { get; private set; } = new Inventory();
+
+    private Player() : base("Chubbo", defaultHealth, defaultAttackLevel, defaultLuck)
     {
         InitializePlayer();
     }
 
     private void InitializePlayer()
     {
-        Name = "Chubbo";
-        MaxHealth = 100;
-        CurrentHealth = MaxHealth;
-        CurrentWeapon = Weapon.CreateWeapon("Fists");
+        CurrentWeapon = Weapon.CreateWeapon(WeaponType.Fists);
     }
 
     public void Guard()
     {
         isGuarding = true;
         Console.WriteLine($"{Name} takes a defensive stance!");
+    }
+
+    public void ResetHealth()
+    {
+        CurrentHealth = MaxHealth;
     }
 
     public bool IsGuarding()
@@ -47,7 +55,7 @@ public class Player : Character
             int reducedDamage = (int)(incomingDamage * (1 - reduction));
             Console.WriteLine($"{Name} blocks {(int)(reduction * 100)}% of the damage!");
             isGuarding = false;
-            
+
             GainExperience(reducedDamage);
             return reducedDamage;
         }
@@ -60,18 +68,18 @@ public class Player : Character
         level++;
         experience -= experienceToNextLevel;
         experienceToNextLevel = level * 50;
-        
+
         MaxHealth += 20;
         CurrentHealth = MaxHealth;
-        
+
         // Upgrade weapon based on level
         CurrentWeapon = level switch
         {
-            1 => Weapon.CreateWeapon("Fists"),
-            3 => Weapon.CreateWeapon("FryGun"),
-            5 => Weapon.CreateWeapon("SodaSprayer"),
-            7 => Weapon.CreateWeapon("PizzaSlicer"),
-            10 => Weapon.CreateWeapon("SugarRushRifle"),
+            1 => Weapon.CreateWeapon(WeaponType.Fists),
+            3 => Weapon.CreateWeapon(WeaponType.FryGun),
+            5 => Weapon.CreateWeapon(WeaponType.SodaSprayer),
+            7 => Weapon.CreateWeapon(WeaponType.PizzaSlicer),
+            10 => Weapon.CreateWeapon(WeaponType.SugarRushRifle),
             _ => CurrentWeapon
         };
 
@@ -87,7 +95,7 @@ public class Player : Character
     {
         experience += amount;
         Console.WriteLine($"{Name} gained {amount} experience!");
-        
+
         if (experience >= experienceToNextLevel)
         {
             LevelUp();
@@ -109,9 +117,14 @@ public class Player : Character
         return experienceToNextLevel;
     }
 
-    void heal()
+    public void Heal(int amount)
     {
-
+        if (CurrentHealth + amount > MaxHealth)
+        {
+            CurrentHealth = MaxHealth;
+            return;
+        }
+        CurrentHealth += amount;
     }
 
     void takeDamage()
@@ -136,17 +149,13 @@ public class Player : Character
         Console.ReadKey();
     }
 
-    public int GetDamage() {
-        if (CurrentWeapon == null) {
-            return 5;
+    public int GetDamage()
+    {
+        if (CurrentWeapon == null)
+        {
+            return AttackLevel;
         }
 
-        return CurrentWeapon.AttackLevel;
+        return CurrentWeapon.AttackLevel + AttackLevel;
     }
-
-    void useItem(Item item)
-    {
-
-    }
-
 }

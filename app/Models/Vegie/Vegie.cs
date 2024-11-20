@@ -1,34 +1,34 @@
-public enum Difficulty
-{
-    Easy,
-    Normal, 
-    Hard
-}
-
 public class Vegie : Character
 {
     private Random random = new Random();
-    public Vegie(Difficulty difficulty = Difficulty.Normal)
+
+    public Vegie(string name, int maxHealth, int attackLevel, int luck)
+        : base(name, maxHealth, attackLevel, luck)
     {
-        this.Name = "Vegie";
-        
-        switch (difficulty)
+        CurrentHealth = MaxHealth;
+    }
+
+
+    private static int GetMaxHealth(Difficulty difficulty)
+    {
+        return difficulty switch
         {
-            case Difficulty.Easy:
-                this.MaxHealth = 75;
-                this.AttackLevel = 5;
-                break;
-            case Difficulty.Normal:
-                this.MaxHealth = 100;
-                this.AttackLevel = 10;
-                break;
-            case Difficulty.Hard:
-                this.MaxHealth = 150;
-                this.AttackLevel = 15;
-                break;
-        }
-        
-        this.CurrentHealth = this.MaxHealth;
+            Difficulty.Easy => 75,
+            Difficulty.Normal => 100,
+            Difficulty.Hard => 150,
+            _ => 100 // Default to normal
+        };
+    }
+
+    private static int GetAttackLevel(Difficulty difficulty)
+    {
+        return difficulty switch
+        {
+            Difficulty.Easy => 10,
+            Difficulty.Normal => 100,
+            Difficulty.Hard => 15,
+            _ => 10 // Default to normal
+        };
     }
 
     public void Attack(Player player)

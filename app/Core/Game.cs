@@ -1,18 +1,39 @@
-public static class Game
+public class Game
 {
     private Player player;
     private int currentDay = 0;
+    public int currentWave = 0;
 
-    public void startGame()
+    private static readonly Lazy<Game> _instance = new Lazy<Game>(() => new Game());
+    public static Game Instance => _instance.Value;
+
+    public Game()
     {
+        // Implement different Maps here
+        MapArea.SetActiveMap(new LeafyLagoon());
+    }
+
+    public void StartDay()
+    {
+        resetWave();
+        Player.Instance.ResetHealth();
+        currentWave++;
+
+        MapArea.Instance.DisplayDescription();
+
         player = Player.Instance;
 
-        Console.WriteLine("Welcome to the game!");
-        Console.WriteLine("Your name is " + player.Name);
+        BattleMenu.StartBattle(player, MapArea.Instance.GenerateVegie());
+    }
 
-        var vegie = new Vegie();
+    private void resetWave()
+    {
+        currentWave = 0;
+    }
 
-        BattleMenu.StartBattle(player, vegie);
+    public void AddWave()
+    {
+        currentWave++;
     }
 
     public void AddDay()

@@ -1,11 +1,12 @@
 public static class MainMenu
 {
+    private static Game game = Game.Instance;
     private static Player player = Player.Instance;
 
     public static void StartMenu()
     {
         Console.Clear();
-        Console.WriteLine("[CAMP]" + " Day " + Game.GetCurrentDay());
+        Console.WriteLine("[CAMP]" + " Day " + game.GetCurrentDay());
 
         Console.WriteLine("Hello Chubbo!, What would you like to do now?");
         Console.WriteLine("1. Start Game");
@@ -16,11 +17,12 @@ public static class MainMenu
         switch (option)
         {
             case "1":
-                Game game = new Game();
-                game.startGame();
+                game.StartDay();
                 break;
             case "2":
                 ShowStats();
+                break;
+            case "3":
                 break;
             default:
                 Console.WriteLine("Invalid option");
@@ -34,11 +36,13 @@ public static class MainMenu
 
         Console.WriteLine("Your Current Stats: \n");
         Console.WriteLine("Name: " + player.Name);
+        Console.WriteLine("Weapon: " + player.CurrentWeapon.Name + " (Attack: " + player.CurrentWeapon.AttackLevel + ")");
+
         Console.WriteLine("Level: " + player.Level);
         Console.WriteLine("Health: " + player.CurrentHealth);
         Console.WriteLine("Attack Level: " + player.AttackLevel);
         Console.WriteLine("Luck: " + player.Luck);
-        Console.WriteLine("Experience: " + player.Experience);
+        Console.WriteLine("Experience: " + player.GetExperience() + "/" + player.GetExpereinceToNextLevel());
 
         Console.WriteLine("Press any key to continue...");
 
