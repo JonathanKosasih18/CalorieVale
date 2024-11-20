@@ -89,6 +89,10 @@ public class Player : Character
         {
             Console.WriteLine($"Obtained new weapon: {CurrentWeapon.Name}!");
         }
+
+        Console.WriteLine("Press any key to continue...");
+
+        Console.ReadKey();
     }
 
     public void GainExperience(int amount)

@@ -19,7 +19,7 @@ public static class BattleMenu
             Console.Clear();
             Console.WriteLine("Wave: " + Game.Instance.currentWave + "\tTurn " + Combat.TurnNumber);
             Console.WriteLine(" Level: " + player.GetLevel() + "\t\t" + "Experience: " + player.GetExperience() + "/" + player.GetExpereinceToNextLevel());
-            Console.WriteLine(player.Name + " HP: " + player.CurrentHealth + "\t\t" + vegie.Name + " HP: " + vegie.CurrentHealth);
+            Console.WriteLine(player.Name + " HP: " + player.CurrentHealth + " / " + player.MaxHealth + "\t\t" + vegie.Name + " HP: " + vegie.CurrentHealth + " / " + vegie.MaxHealth);
             Console.WriteLine("\n");
 
             Console.WriteLine("Player turn");
@@ -55,6 +55,8 @@ public static class BattleMenu
                 Console.WriteLine("Press any key to continue...");
 
                 Console.ReadKey();
+
+                Console.Clear();
 
                 Game.Instance.StartDay();
             }

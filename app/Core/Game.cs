@@ -11,17 +11,14 @@ public class Game
     {
         // Implement different Maps here
         MapArea.SetActiveMap(new LeafyLagoon());
+        MapArea.Instance.DisplayDescription();
+        player = Player.Instance;
     }
 
     public void StartDay()
     {
         resetWave();
-        Player.Instance.ResetHealth();
         currentWave++;
-
-        MapArea.Instance.DisplayDescription();
-
-        player = Player.Instance;
 
         BattleMenu.StartBattle(player, MapArea.Instance.GenerateVegie());
     }
