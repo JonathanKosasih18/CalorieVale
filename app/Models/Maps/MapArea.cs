@@ -25,7 +25,8 @@ public class MapArea
     public Vegie GenerateVegie()
     {
         int randomIndex = new Random().Next(0, Vegies.Count);
-        return Vegies[randomIndex];
+        Vegie prototype = Vegies[randomIndex];
+        return new Vegie(prototype.Name, prototype.MaxHealth, prototype.AttackLevel, prototype.Luck);
     }
 
     // Virtual method for area descriptions

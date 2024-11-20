@@ -10,7 +10,7 @@ public class Player : Character
     private int experienceToNextLevel = 100;
 
     private static int defaultHealth = 50;
-    private static int defaultAttackLevel = 25;
+    private static int defaultAttackLevel = 100;
     private static int defaultLuck = 5;
 
     // Singleton pattern

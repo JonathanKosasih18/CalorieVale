@@ -4,14 +4,11 @@ public static class BattleMenu
 {
     public static void StartBattle(Player player, Vegie vegie)
     {
+        Console.Clear();
         Console.WriteLine("A Wild " + vegie.Name + " appears!\n");
 
         Console.WriteLine("Press any key to start the battle...");
         Console.ReadKey();
-
-        Console.Clear();
-        Console.WriteLine("A wild " + vegie.Name + " appears!");
-
 
         while (!player.IsDead() && !vegie.IsDead())
         {

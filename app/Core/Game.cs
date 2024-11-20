@@ -17,11 +17,15 @@ public class Game
 
     public void StartDay()
     {
-        resetWave();
-        currentWave++;
-
+        if (currentWave == 0)
+        {
+            // Reset wave only at the beginning of a new day
+            resetWave();
+        }
+        AddWave();
         BattleMenu.StartBattle(player, MapArea.Instance.GenerateVegie());
     }
+
 
     private void resetWave()
     {
